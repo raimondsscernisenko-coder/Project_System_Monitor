@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  monitor:
+    image: ubuntu:24.04
+    container_name: system-monitor
+    volumes:
+      - ./logs:/app/logs
+      - ./output:/app/output
+    working_dir: /app
+    command: >
+      bash -c "apt-get update -qq &&
+               apt-get install -y bc procps cron &&
+               cp /scripts/monitoring.sh /app/monitoring.sh &&
+               cp /scripts/alert.sh /app/alert.sh &&
+               chmod +x /app/monitoring.sh /app/alert.sh &&
+               echo '*/5 * * * * /app/monitoring.sh >> /app/logs/cron.log 2>&1' | crontab - &&
+               echo '*/5 * * * * /app/alert.sh >> /app/logs/cron.log 2>&1' | crontab - &&
+               cron -f"
+    volumes:
+      - ./logs:/app/logs
+      - ./output:/app/output
+      - .:/scripts:ro
+    restart: unless-stopped

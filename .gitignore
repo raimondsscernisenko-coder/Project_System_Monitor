@@ -1,0 +1,5 @@
+*.log
+index.html
+cron.log
+logs/
+output/
