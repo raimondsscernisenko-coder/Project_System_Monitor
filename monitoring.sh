@@ -45,7 +45,7 @@ h1   { color: #4ecdc4; }
   </style>
 </head>
 <body>
-  <h1>System Health Monitor</h1>
+  <h1>System Health Monitor by Raimonds Cernisenko</h1>
   <p>Last updated: $TIMESTAMP</p>
   <div class="metric">CPU usage: <span class="$([ ${CPU_USAGE%.*} -ge 80 ] && echo crit || [ ${CPU_USAGE%.*} -ge 60 ] && echo warn || echo ok)">${CPU_USAGE}%</span></div>
   <div class="metric">RAM used: <span class="$([ ${RAM_PERCENT%.*} -ge 85 ] && echo crit || [ ${RAM_PERCENT%.*} -ge 70 ] && echo warn || echo ok)">${RAM_USED}MB / ${RAM_TOTAL}MB (${RAM_PERCENT}%)</span></div>
